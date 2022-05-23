@@ -1,0 +1,95 @@
+#This is a simple back and forth game like pokemon Weapon damage is the base amount for the weapon equation that will be used as the goblins weapon as well. defending halfs your damage taken at the next turn and if you are hit during that defence turn by a critical hit you will counter with a 5000 damage attack. This is high skill gameplay for only EPIC gamers like myself, the commands for attacking and defending are just as typed "ATTACK" or "DEFEND"
+import random
+playhp = 10000
+enemyhp = 7000
+y = int(input("weapon damage: "))
+z = 0
+x = 0
+move = "none"
+crit = 0
+defend = 0
+o = 0
+
+
+choice = "none"
+turn = 1
+#intro
+print("PREPARE TO DIE")
+print("*A GOBLIN ATTACKS YOU*")
+
+
+while (enemyhp > 0 and playhp > 0 ):
+    #choice script WORKING
+    while (choice == "none" and turn == 1):
+        choice = str(input("ATTACK/DEFEND: "))
+        defend = 0
+        crit = 0
+        r = random.randint (0, 10)
+    #ATTACK
+    if (choice == "ATTACK"):
+        while (x != y):
+            x = random.randint(0, y)
+            z = z + 1
+        if (z > y * 1.5):
+            if (r % 2 == 1):
+                print("---CRITICAL HIT---")
+            z = z + (z * 0.75)
+        if (o == 1):
+            z = z * 5
+            o = 0
+            print("You bring your blade down on the goblin, he is not ready.")
+        print(str(z) + "\n")
+        enemyhp = enemyhp - z
+        x = 0
+        z = 0
+        enemyhp = enemyhp - z
+        choice = "none"
+        turn = 0
+        
+        
+    #defend
+    if (choice == "DEFEND"):
+        defend = 1
+        turn = 0
+        choice = "none"
+    
+    
+    
+    #attack script
+    while ( turn == 0 and o == 0):
+        r = random.randint (0, 10)
+        while (x != y):
+            x = random.randint(0, y)
+            z = z + 1
+        if (z > y * 1.5):
+            if (r % 2 == 1):
+                print("---CRITICAL HIT---")
+                crit = 1
+                z = z + (z * 0.75)
+        if (defend == 1):
+            print("-Orignal damage: " + str(z))
+            z = z/2
+            if (crit == 1):
+                    print("\n----COUNTER----")
+                    print("Goblin stumbles after the counter and is wide open!")
+                    crit = 0
+                    o = 1
+            defend = 0
+        print("Hit for: " + str(z) + "\n")
+        playhp = playhp - z
+        x = 0
+        z = 0
+        turn = 1
+        print("YOU: " + str(playhp) + "HP\nGOBLIN: " + str(enemyhp) + "HP") 
+    #end of battle sequence
+    if (playhp < 0 and enemyhp < 0):
+        print("You both fall down winded after battle. After you are both rested you stand to fight once again!\n+2000 hp")
+        enemyhp = enemyhp + 2000
+        playhp = playhp + 2000
+if (playhp < 0):
+    print("\n--You loose.--")
+
+if (enemyhp < 0):
+    print("\n--You win!--")
+
+
